@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ed.Extensions.Enumerable
 {
@@ -22,6 +23,9 @@ namespace Ed.Extensions.Enumerable
             for(int i=0;i< size;++i) 
                 yield return objectCreator();
         }
+        public static Dictionary<TKey,List<T>> CreateDictionaryList<TKey,T>(this IEnumerable<T> list,Func<T,TKey> keySelector  )
+            => list.GroupBy(keySelector).ToDictionary(kvp=> kvp.Key, grp=> grp.ToList() );
+
            
     }
 }
